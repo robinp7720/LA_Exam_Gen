@@ -1,5 +1,6 @@
 import question_types.determinant
 import question_types.char_polynomial
+import question_types.dot_product
 
 OUTPUT_DIR = "output"
 
@@ -38,6 +39,7 @@ if __name__ == '__main__':
 
     generator.addQuestion(question_types.char_polynomial.generate_question())
     generator.addQuestion(question_types.determinant.generate_question())
+    generator.addQuestion(question_types.dot_product.generate_question())
 
 
     with open("template.tex", 'r') as file:
