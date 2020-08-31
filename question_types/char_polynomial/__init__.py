@@ -1,7 +1,7 @@
 # coding=utf-8
 
 import numpy as np
-from modules.generators.matrix import bmatrix_displaymath
+from modules.generators.matrix import pmatrix_displaymath
 
 
 def generate_question(matrix_dimension=4, max_random_value=4, min_random_value=-4):
@@ -9,7 +9,7 @@ def generate_question(matrix_dimension=4, max_random_value=4, min_random_value=-
     # Generate a random matrix of size MATRIX_DIMENSION (defaults to 3)
     matrix = np.random.randint(min_random_value, max_random_value + 1, (matrix_dimension, matrix_dimension))
 
-    output += bmatrix_displaymath(matrix, "A")
+    output += pmatrix_displaymath(matrix, "A")
 
     output += "\\begin{parts}\n"
 
