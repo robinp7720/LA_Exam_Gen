@@ -18,7 +18,7 @@ def generate_question(matrix_dimension=3, max_random_value=4, min_random_value=-
 
     output += "\\begin{solutionorbox}[1in]\n"
 
-    output += f"det(a) = ${sympy.latex(sympy.Matrix(matrix).det())}$"
+    output += f"${sympy.latex(sympy.Matrix(matrix).det())}$"
 
     output += "\\end{solutionorbox}\n"
 

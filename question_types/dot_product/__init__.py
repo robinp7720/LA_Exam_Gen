@@ -49,18 +49,23 @@ def generate_question(max_multiplicator=6, min_multiplicator=-6, max_surd=9):
     y = []
     z = []
     for i in range(3):
-        x.append([random.randint(min_multiplicator, max_multiplicator)])
-        y.append([random.randint(min_multiplicator, max_multiplicator)])
-        z.append([random.randint(min_multiplicator, max_multiplicator)])
+        x.append([generate_random_surd_sympy(max_multiplicator, min_multiplicator, max_surd)])
+        y.append([generate_random_surd_sympy(max_multiplicator, min_multiplicator, max_surd)])
+        z.append([generate_random_surd_sympy(max_multiplicator, min_multiplicator, max_surd)])
 
-    output += f"\\part[2] Bestimmen Sie zur Basis $({pmatrix(x)}{pmatrix(y)}{pmatrix(z)})$ von $\\mathbb{{R}}^3$ mit dem Gram-Schmidt Verfahren die zugehörige Orthogonalbasis:\n"
+    X = sympy.Matrix(x)
+    Y = sympy.Matrix(y)
+    Z = sympy.Matrix(z)
+
+    output += f"\\part[2] Bestimmen Sie zur Basis $({sympy.latex(X)},{sympy.latex(Y)},{sympy.latex(Z)})$ von $\\mathbb{{R}}^3$ mit dem Gram-Schmidt Verfahren die zugehörige Orthogonalbasis:\n"
     output += "\\makeemptybox{2in}\n"
 
     t = []
     for i in range(3):
-        t.append([random.randint(min_multiplicator, max_multiplicator)])
+        t.append([generate_random_surd_sympy(max_multiplicator, min_multiplicator, max_surd)])
+    T = sympy.Matrix(t)
 
-    output += f"\\part[2] Sei $U = \\langle {pmatrix(t)} \\rangle $\\\\"
+    output += f"\\part[2] Sei $U = \\langle {sympy.latex(T)} \\rangle $\\\\"
     output += f"Berechnen Sie eine Basis von $U^\\top$"
     output += "\\makeemptybox{2in}\n"
 
