@@ -8,6 +8,8 @@ import question_types.char_polynomial
 import question_types.dot_product
 import question_types.determinant_with_variable
 
+import question_types.text_based.dot_product
+
 OUTPUT_DIR = "output"
 
 sympy.init_printing()
@@ -49,10 +51,14 @@ if __name__ == '__main__':
 
     print('Generating questions')
 
-    generator.addQuestion(question_types.char_polynomial.generate_question())
+    #generator.addQuestion(question_types.char_polynomial.generate_question())
     generator.addQuestion(question_types.determinant.generate_question())
     generator.addQuestion(question_types.dot_product.generate_question())
     generator.addQuestion(question_types.determinant_with_variable.generate_question())
+
+    # Text based questions
+    # TODO: Randomize text based questions
+    generator.addQuestion(question_types.text_based.dot_product.generate_question())
 
     print('Questions generated')
     with open("template_questions.tex", 'r') as file:
