@@ -4,16 +4,32 @@ import numpy as np
 from modules.generators.matrix import pmatrix_displaymath
 import sympy
 
+def is_good_matrix(matrix):
+    M = sympy.Matrix(matrix)
+    eigenvalues = M.eigenvals()
+    for i in eigenvalues:
+        if not i.is_integer:
+            return False
+
+    return True
+
+
+def generate_good_matrix(matrix_dimension=4, max_random_value=4, min_random_value=-4):
+    print("Trying to find a suitable matrix. This may take a while")
+
+    matrix = np.random.randint(min_random_value, max_random_value + 1, (matrix_dimension, matrix_dimension))
+
+    while not is_good_matrix(matrix):
+        matrix = np.random.randint(min_random_value, max_random_value + 1, (matrix_dimension, matrix_dimension))
+
+    return matrix
+
 
 def generate_question(matrix_dimension=4, max_random_value=4, min_random_value=-4):
     output = f"\\question Sei $A \\in \\mathbb{{R}}^{{{matrix_dimension} \\times {matrix_dimension}}}$ mit\n"
     # Generate a random matrix of size MATRIX_DIMENSION (defaults to 4)
-    matrix = np.random.randint(min_random_value, max_random_value + 1, (matrix_dimension, matrix_dimension))
 
-    for y in range(len(matrix)):
-        for x in range(len(matrix[y])):
-            if np.random.randint(0, 5) < 3:
-                matrix[y, x] = 0
+    matrix = generate_good_matrix(matrix_dimension, max_random_value, min_random_value)
 
     output += pmatrix_displaymath(matrix, "A")
 
@@ -23,7 +39,7 @@ def generate_question(matrix_dimension=4, max_random_value=4, min_random_value=-
 
     output += "\\part[2] Berechnen Sie das charakteristische Polynom von A:\n"
     output += "\\begin{solutionorbox}[1in]\n"
-    output += f"char(A) $= {sympy.latex(M.charpoly('X').as_expr())}$\n"
+    output += f"$\\chi_{{A}}(X) = {sympy.latex(M.charpoly('X').as_expr())}$\n"
     output += "\\end{solutionorbox}\n"
     output += "\\part[1] Berechnen Sie die Eigenwerte von A:\n"
     output += "\\begin{solutionorbox}[1in]\n"
@@ -44,7 +60,7 @@ def generate_question(matrix_dimension=4, max_random_value=4, min_random_value=-
     output += "\\end{solutionorbox}\n"
     output += "\\part[2] Was sind die geometrischen und algebraischen Vielfachheiten der Eigenwerte von A:\n"
     output += "\\begin{solutionorbox}[1in]\n"
-    output += f"${eigenvalues}$\n"
+    output += f"${sympy.latex(eigenvalues)}$\n"
     output += "\\end{solutionorbox}\n"
 
     output += "\\end{parts}\n"
