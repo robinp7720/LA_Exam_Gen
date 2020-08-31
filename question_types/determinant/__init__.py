@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import numpy as np
+import sympy
 from modules.generators.matrix import pmatrix_displaymath
 
 
@@ -14,13 +15,16 @@ def generate_question(matrix_dimension=3, max_random_value=4, min_random_value=-
     output += "\\begin{parts}\n"
 
     output += "\\part[1] Berechnen Sie die Determinante von A:\n"
-    output += "\\makeemptybox{1in}\n"
+
+    output += "\\begin{solutionorbox}[1in]\n"
+
+    output += f"det(a) = ${sympy.latex(sympy.Matrix(matrix).det())}$"
+
+    output += "\\end{solutionorbox}\n"
 
     output += "\\end{parts}\n"
 
-    solution = ""
-
-    return [output, solution]
+    return [output]
 
 
 if __name__ == "__main__":
