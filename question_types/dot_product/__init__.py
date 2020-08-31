@@ -36,14 +36,14 @@ def generate_question(max_multiplicator=6, min_multiplicator=-6, max_surd=9):
         y.append([random.randint(min_multiplicator, max_multiplicator)])
         z.append([random.randint(min_multiplicator, max_multiplicator)])
 
-    output += f"\\part[2] Bestimmen Sie zur Basis \\langle {pmatrix(x)}{pmatrix(y)}{pmatrix(z)} \\rangle von $\\mathbb{{R}}^3$ mit dem Gram-Schmidt Verfahren die zugehörige Orthogonalbasis:\n"
+    output += f"\\part[2] Bestimmen Sie zur Basis ({pmatrix(x)}{pmatrix(y)}{pmatrix(z)}) von $\\mathbb{{R}}^3$ mit dem Gram-Schmidt Verfahren die zugehörige Orthogonalbasis:\n"
     output += "\\makeemptybox{2in}\n"
 
     t = []
     for i in range(3):
         t.append([random.randint(min_multiplicator, max_multiplicator)])
 
-    output += f"\\part[2] Sie $U = ({pmatrix(t)})$\\\\"
+    output += f"\\part[2] Sei $U = \\langle {pmatrix(t)} \\rangle $\\\\"
     output += f"Berechnen Sie eine Basis von U^\\top"
     output += "\\makeemptybox{2in}\n"
 
