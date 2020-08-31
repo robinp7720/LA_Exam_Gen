@@ -1,4 +1,6 @@
 import os, subprocess
+import getopt
+import sys
 import sympy
 
 import question_types.determinant
@@ -31,11 +33,22 @@ class exam_generator:
 
 
 if __name__ == '__main__':
+    argv = sys.argv[1:]
+
+    opts, args = getopt.getopt(argv, 'vhs', ['gradetable'])
+
+    gradetable = False
+    for (arg, mod) in opts:
+        if arg == '--gradetable':
+            gradetable = True
+
+
     print('Starting exam generation')
 
     generator = exam_generator()
 
     print('Generating questions')
+
     generator.addQuestion(question_types.char_polynomial.generate_question())
     generator.addQuestion(question_types.determinant.generate_question())
     generator.addQuestion(question_types.dot_product.generate_question())
@@ -46,6 +59,12 @@ if __name__ == '__main__':
         print('Generating latex documents')
         template = file.read()
         template = template.replace("{{QUESTIONS}}", generator.generateQuestions())
+
+        if gradetable:
+            template = template.replace("{{AFTER_INSTRUCTIONS}}", "\\begin{center}\\gradetable[h]\\end{center}\\vspace{0.2in}{{AFTER_INSTRUCTIONS}}")
+
+
+        template = template.replace("{{AFTER_INSTRUCTIONS}}", "")
 
         without_answers = template.replace("{{PREAMBLE}}", "")
         with_answers = template.replace("{{PREAMBLE}}", "\\printanswers")
@@ -60,5 +79,11 @@ if __name__ == '__main__':
 
     print('Generating PDFs')
 
-    subprocess.run(['pdflatex', '-output-directory=output', without_answers_output_file_path])
-    subprocess.run(['pdflatex', '-output-directory=output', with_answers_output_file_path])
+    compile_count = 1
+
+    if (gradetable):
+        compile_count = 2
+
+    for i in range(compile_count):
+        subprocess.run(['pdflatex', '-output-directory=output', without_answers_output_file_path])
+        subprocess.run(['pdflatex', '-output-directory=output', with_answers_output_file_path])
