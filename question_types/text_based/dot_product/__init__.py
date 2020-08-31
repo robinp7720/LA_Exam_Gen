@@ -6,7 +6,7 @@ import sympy
 
 
 def generate_question(matrix_dimension=4, max_random_value=4, min_random_value=-4):
-    output = "Sei $V$ ein $\mathbb{R}$ -Vektorraum mit einem Skalarprodukt $\\langle\\cdot, \\cdot\\rangle .$"
+    output = "\\question Sei $V$ ein $\mathbb{R}$ -Vektorraum mit einem Skalarprodukt $\\langle\\cdot, \\cdot\\rangle .$"
 
     output += "\\begin{parts}\n"
 
