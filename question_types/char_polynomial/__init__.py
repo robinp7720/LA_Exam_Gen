@@ -45,22 +45,43 @@ def generate_question(matrix_dimension=4, max_random_value=4, min_random_value=-
     output += "\\begin{solutionorbox}[1in]\n"
 
     eigenvalues = M.eigenvals()
-    count = 0
+    eigenvectors = M.eigenvects()
+
+    # generate sorted list form of the eigenvalues
+
+    eigenvalues_list = []
 
     for i in eigenvalues:
-        count += 1
-        output += f"${sympy.latex(i)}$"
-        if count < len(eigenvalues):
-            output += ', '
+        eigenvalues_list.append(i)
 
+    eigenvalues_list.sort()
+    eigenvalues_list = map(lambda x: str(x), eigenvalues_list);
+
+    eigenvalues_string = ", ".join(eigenvalues_list);
+
+    # generate good looking version of the eigenvectors
+
+    eigenvectors_dic = {}
+
+    for i in eigenvectors:
+        eigenvectors_dic[i[0]] = i[2]
+
+    # generate multiplicities of eigenvalues
+
+    multiplicities = {}
+
+    for i in eigenvectors:
+        multiplicities[i[0]] = { "g": len(i[2]), "m": i[1] }
+
+    output += f"${sympy.latex(eigenvalues_string)}$\n"
     output += "\\end{solutionorbox}\n"
     output += "\\part[2] Geben Sie zu jedem Eigenwert von A eine Basis des Eigenraumes an:\n"
     output += "\\begin{solutionorbox}[1in]\n"
-    output += f"${sympy.latex(M.eigenvects())}$\n"
+    output += f"${sympy.latex(eigenvectors_dic)}$\n"
     output += "\\end{solutionorbox}\n"
     output += "\\part[2] Was sind die geometrischen und algebraischen Vielfachheiten der Eigenwerte von A:\n"
     output += "\\begin{solutionorbox}[1in]\n"
-    output += f"${sympy.latex(eigenvalues)}$\n"
+    output += f"${sympy.latex(multiplicities)}$\n"
     output += "\\end{solutionorbox}\n"
 
     output += "\\end{parts}\n"

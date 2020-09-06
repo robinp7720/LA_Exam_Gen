@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     print('Generating questions')
 
-    #generator.addQuestion(question_types.char_polynomial.generate_question())
+    generator.addQuestion(question_types.char_polynomial.generate_question())
     generator.addQuestion(question_types.determinant.generate_question())
     generator.addQuestion(question_types.dot_product.generate_question())
     generator.addQuestion(question_types.determinant_with_variable.generate_question())
@@ -71,6 +71,7 @@ if __name__ == '__main__':
 
 
         template = template.replace("{{AFTER_INSTRUCTIONS}}", "")
+        template = template.replace("{{TIME}}", "120")
 
         without_answers = template.replace("{{PREAMBLE}}", "")
         with_answers = template.replace("{{PREAMBLE}}", "\\printanswers")
