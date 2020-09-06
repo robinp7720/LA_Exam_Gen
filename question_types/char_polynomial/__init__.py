@@ -20,7 +20,7 @@ def generate_good_matrix(matrix_dimension=4, max_random_value=4, min_random_valu
     matrix = np.random.randint(min_random_value, max_random_value + 1, (matrix_dimension, matrix_dimension))
 
     while not is_good_matrix(matrix):
-       matrix = np.random.randint(min_random_value, max_random_value + 1, (matrix_dimension, matrix_dimension))
+        matrix = np.random.randint(min_random_value, max_random_value + 1, (matrix_dimension, matrix_dimension))
 
     return matrix
 
