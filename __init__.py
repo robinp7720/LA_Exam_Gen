@@ -71,6 +71,7 @@ if __name__ == '__main__':
 
 
         template = template.replace("{{AFTER_INSTRUCTIONS}}", "")
+        template = template.replace("{{TIME}}", "120")
 
         without_answers = template.replace("{{PREAMBLE}}", "")
         with_answers = template.replace("{{PREAMBLE}}", "\\printanswers")
