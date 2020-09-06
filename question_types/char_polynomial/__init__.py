@@ -2,6 +2,7 @@
 
 import numpy as np
 from modules.generators.matrix import pmatrix_displaymath
+from question_types.char_polynomial.polynoms import vielfachheit
 import sympy
 
 def is_good_matrix(matrix):
@@ -36,16 +37,22 @@ def generate_question(matrix_dimension=4, max_random_value=4, min_random_value=-
     output += "\\begin{parts}\n"
 
     M = sympy.Matrix(matrix)
+    C = M.charpoly('X')
 
     output += "\\part[2] Berechnen Sie das charakteristische Polynom von A:\n"
     output += "\\begin{solutionorbox}[1in]\n"
-    output += f"$\\chi_{{A}}(X) = {sympy.latex(M.charpoly('X').as_expr())}$\n"
+    output += f"$\\chi_{{A}}(X) = {sympy.latex(C.as_expr())}$\n"
     output += "\\end{solutionorbox}\n"
     output += "\\part[1] Berechnen Sie die Eigenwerte von A:\n"
     output += "\\begin{solutionorbox}[1in]\n"
 
     eigenvalues = M.eigenvals()
     count = 0
+
+    charpoly = C.all_coeffs()
+
+    for idx in eigenvalues:
+        eigenvalues[idx]= { "g": eigenvalues[idx], "m": vielfachheit(charpoly, idx) }
 
     for i in eigenvalues:
         count += 1
